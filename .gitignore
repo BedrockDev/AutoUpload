@@ -328,3 +328,10 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+
+# User Information files
+upload_video.py-oauth2.json
+api-key.txt
+client_secrets.json
+oauth-key.txt
+test.mp4
