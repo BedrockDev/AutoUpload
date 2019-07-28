@@ -6,6 +6,9 @@ import os
 import random
 import sys
 import time
+import glob
+import os
+from pathlib import Path
 
 from apiclient.discovery import build
 from apiclient.errors import HttpError
@@ -14,6 +17,23 @@ from oauth2client.client import flow_from_clientsecrets
 from oauth2client.file import Storage
 from oauth2client.tools import argparser, run_flow
 
+# Latest file name retrieving
+
+home = str(Path.home())
+video_path = home + "/Videos/Logitech Webcam"
+audio_path = home + "/OneDrive/오디오파일"
+
+list_of_files = glob.glob(video_path + "/*.mp4")
+video_name = max(list_of_files, key=os.path.getctime)
+
+list_of_files = glob.glob(audio_path + "/*.mp3")
+audio_name = max(list_of_files, key=os.path.getctime)
+
+upload_title = video_name[:-4]
+upload_file = video_path + "/" + video_name
+upload_description = "http://gwanakchurch.org/"
+upload_category = "29"
+upload_privacyStatus = "unlisted"
 
 # Explicitly tell the underlying HTTP transport library not to retry, since
 # we are handling retry logic ourselves.
@@ -157,18 +177,21 @@ def resumable_upload(insert_request):
       time.sleep(sleep_seconds)
 
 if __name__ == '__main__':
-  argparser.add_argument("--file", required=True, help="Video file to upload")
-  argparser.add_argument("--title", help="Video title", default="Test Title")
+  argparser.add_argument("--file", help="Video file to upload", default=upload_file)
+  argparser.add_argument("--title", help="Video title", default=upload_title)
   argparser.add_argument("--description", help="Video description",
-    default="Test Description")
-  argparser.add_argument("--category", default="22",
+    default=upload_description)
+  argparser.add_argument("--category", default=upload_category,
     help="Numeric video category. " +
       "See https://developers.google.com/youtube/v3/docs/videoCategories/list")
   argparser.add_argument("--keywords", help="Video keywords, comma separated",
     default="")
   argparser.add_argument("--privacyStatus", choices=VALID_PRIVACY_STATUSES,
-    default=VALID_PRIVACY_STATUSES[0], help="Video privacy status.")
+    default=upload_privacyStatus, help="Video privacy status.")
   args = argparser.parse_args()
+
+  print(argparser)
+  print(argparser.parse_args())
 
   if not os.path.exists(args.file):
     exit("Please specify a valid file using the --file= parameter.")
