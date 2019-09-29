@@ -65,6 +65,15 @@ if len(sys.argv) > 1:
         # ID3 Tagging
         tag_ID3(title_1)
         os.rename(temp_path, audio_path + "/" + title_1 + ".mp3")
+
+        # YouTube uploading
+        upload = 'python upload_video.py --file="' + video_target + '" --title="' + title_1 + '" --description="http://gwanakchurch.org/" --category="29" --privacyStatus="public"'
+        os.system(upload)
+
+        # Open programs
+        os.system("notepad.exe html.txt")
+        os.system('"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" -new-window gwanakchurch.org')
+        os.system('start "' + audio_path + '"')
     if sys.argv[1] == 'main':
         # Video file renaming
         os.rename(video_target, video_path + "/" + title_2 + ".mp4")
@@ -78,6 +87,35 @@ if len(sys.argv) > 1:
         # ID3 Tagging
         tag_ID3(title_2)
         os.rename(temp_path, audio_path + "/" + title_2 + ".mp3")
+
+        # YouTube uploading
+        upload = 'python upload_video.py --file="' + video_target + '" --title="' + title_2 + '" --description="http://gwanakchurch.org/" --category="29" --privacyStatus="unlisted"'
+        os.system(upload)
+        
+        # Open programs
+        os.system("notepad.exe html.txt")
+        os.system('"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" -new-window http://cafe.daum.net/-goodchurch/J22o')
+        os.system('start "' + audio_path + '"')
+    if sys.argv[1] == "test":
+        if debug: print("TEST RUN")
+        # Video file renaming
+        # os.rename(video_target, video_path + "/" + title_1 + ".mp4")
+        # video_target = video_path + "/" + title_1 + ".mp4"
+
+        # ffmpeg script
+        # script = "ffmpeg -i \"" + video_target + "\" -b:a 96K -vn \"" + temp_path
+        # if debug: print("Executing morning script: " + script)
+        # os.system(script)
+        
+        # ID3 Tagging
+        # tag_ID3(title_1)
+        # os.rename(temp_path, audio_path + "/" + title_1 + ".mp3")
+
+        # YouTube uploading
+        upload = 'python upload_video.py --file="' + video_path + "/" + "test" + ".mp4" + '" --title="' + title_1 + '" --description="http://gwanakchurch.org/" --category="29" --privacyStatus="unlisted"'
+        os.system(upload)
+
+        # HTML
 else:
     if debug: print("Argument not available, define video type to process")
     # os.system("ffmpeg -i " + video_path + "/" + video_target + " -b:a 96K -vn audio.mp3")

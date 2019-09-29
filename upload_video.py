@@ -154,6 +154,7 @@ def resumable_upload(insert_request):
       status, response = insert_request.next_chunk()
       if 'id' in response:
         print("Video id '%s' was successfully uploaded." % response['id'])
+        generate_html(upload_title, response['id'])
       else:
         exit("The upload failed with an unexpected response: %s" % response)
     except HttpError as e:
@@ -201,3 +202,15 @@ if __name__ == '__main__':
     initialize_upload(youtube, args)
   except HttpError as e:
     print("An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
+
+
+def generate_html(title, id):
+  html = '''
+  %s
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/%s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <P><A href=""><STRONG><FONT color=#e31600 size=5>설교 MP3 파일을 다운받으려면 여기를 클릭하세요</FONT></STRONG></A></P>
+  ''' % title, id
+
+  f = open("html.txt", "w")
+  f.write(html)
+  f.close()
