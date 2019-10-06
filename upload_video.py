@@ -35,6 +35,17 @@ upload_description = "http://gwanakchurch.org/"
 upload_category = "29"
 upload_privacyStatus = "unlisted"
 
+def generate_html(t, i):
+  html = '''
+  {0}
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/{1}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <P><A href=""><STRONG><FONT color=#e31600 size=5>설교 MP3 파일을 다운받으려면 여기를 클릭하세요</FONT></STRONG></A></P>
+  '''.format(t, i)
+
+  f = open("html.txt", "w")
+  f.write(html)
+  f.close()
+
 # Explicitly tell the underlying HTTP transport library not to retry, since
 # we are handling retry logic ourselves.
 httplib2.RETRIES = 1
@@ -202,15 +213,3 @@ if __name__ == '__main__':
     initialize_upload(youtube, args)
   except HttpError as e:
     print("An HTTP error %d occurred:\n%s" % (e.resp.status, e.content))
-
-
-def generate_html(title, id):
-  html = '''
-  %s
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/%s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-  <P><A href=""><STRONG><FONT color=#e31600 size=5>설교 MP3 파일을 다운받으려면 여기를 클릭하세요</FONT></STRONG></A></P>
-  ''' % title, id
-
-  f = open("html.txt", "w")
-  f.write(html)
-  f.close()
