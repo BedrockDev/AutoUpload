@@ -72,6 +72,8 @@ if len(sys.argv) > 1:
 
         # Open programs
         os.system("notepad.exe html.txt")
+
+        # Open programs
         os.system('"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" -new-window gwanakchurch.org')
         os.system('start "' + audio_path + '"')
     if sys.argv[1] == 'main':
@@ -94,6 +96,8 @@ if len(sys.argv) > 1:
         
         # Open programs
         os.system("notepad.exe html.txt")
+        
+        # Open programs
         os.system('"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" -new-window http://cafe.daum.net/-goodchurch/J22o')
         os.system('start "' + audio_path + '"')
     if sys.argv[1] == "test":
