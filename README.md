@@ -1,8 +1,15 @@
 # AutoUpload
 A Python CLI tool for uploading video to YouTube
 
-### TODOs
-1. convert mp4 to mp3
-1.1. tag mp3 details
-2. rename mp4 and mp3 files
-3. upload mp4
+### Flow
+
+1. Read title from file
+2. Automatically append suffixes to the title (date, name)
+3. *Ask the user for title confirmation*
+4. Rename latest mp4 file
+5. *Ask the user for file confimation*
+6. Convert mp4 file to mp3 file and add ID3 tags
+7. Upload video to YouTube
+8. Open mp3 file location → open edited html file → open webpage
+
+*All tasks are syncronous*
